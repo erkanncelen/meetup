@@ -1,26 +1,23 @@
-name: 'jaffle_shop'
-
+name: 'meetup_project'
+version: '1.0.0'
 config-version: 2
-version: '0.1'
 
-profile: 'jaffle_shop'
+profile: 'default'
 
 model-paths: ["models"]
-seed-paths: ["seeds"]
+analysis-paths: ["analyses"]
 test-paths: ["tests"]
-analysis-paths: ["analysis"]
+seed-paths: ["seeds"]
 macro-paths: ["macros"]
-
+snapshot-paths: ["snapshots"]
+ 
 target-path: "target"
 clean-targets:
-    - "target"
-    - "dbt_modules"
-    - "logs"
+  - "target"
+  - "dbt_packages"
 
-require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 models:
-  jaffle_shop:
+  my_new_project:
+    source:
       materialized: table
-      staging:
-        materialized: view

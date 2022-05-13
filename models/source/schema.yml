@@ -1,0 +1,11 @@
+# version:2
+ 
+# models:
+#   - name: src_events
+#     description: source table for events json data
+#   - name: src_groups
+#     description: source table for  groups json data
+#   - name: src_ users
+#     description: source table for  users json data
+#   - name: src_ venues
+#     description: source table for  venues json data
