@@ -1,0 +1,1 @@
+SELECT * FROM meetup-402.meetup_db.events_raw
