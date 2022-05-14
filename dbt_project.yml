@@ -21,3 +21,5 @@ models:
   my_new_project:
     source:
       materialized: table
+    staging:
+      materialized: table

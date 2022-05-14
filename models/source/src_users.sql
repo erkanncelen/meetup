@@ -1,1 +1,1 @@
-SELECT * FROM meetup-402.meetup_db.users_raw
+SELECT * FROM meetup-402.meetup_source.users_raw
