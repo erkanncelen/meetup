@@ -22,7 +22,7 @@ SELECT
     response_count,
     positive_response_count,
     event_count,
-    ROUND(response_count*1.00/NULLIF(event_count,0),2) AS response_ratio,
-    ROUND(positive_response_count*1.00/NULLIF(event_count,0),2) AS participation_ratio
+    response_count*1.00/NULLIF(event_count,0) AS response_ratio,
+    positive_response_count*1.00/NULLIF(event_count,0) AS participation_ratio
 
 FROM user_activity
