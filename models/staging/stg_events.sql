@@ -1,7 +1,3 @@
-WITH source AS (
-    SELECT * FROM {{ ref('src_events') }}
-)
-
 SELECT
     ROW_NUMBER() OVER() AS event_id,
     group_id,
@@ -15,4 +11,4 @@ SELECT
     status,
     rsvps
 
-FROM source
+FROM {{ ref('src_events') }}

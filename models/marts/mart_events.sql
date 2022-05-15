@@ -46,7 +46,7 @@ LEFT JOIN {{ ref('stg_venues') }} sv ON sv.venue_id = se.venue_id
 LEFT JOIN {{ ref('stg_groups') }} sg ON sg.group_id = se.group_id
 ),
 
--- inspecting event name and description lengths (and realtionship with group topics)
+-- inspecting event name and description lengths (and relationship with group topics)
 topics_pre AS (
 SELECT 
     se.event_id,

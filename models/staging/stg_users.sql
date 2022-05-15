@@ -1,8 +1,4 @@
-WITH source AS (
-    SELECT * FROM {{ ref('src_users') }}
-),
-
-source_cleaned AS (
+WITH hometown_cleaned AS (
     SELECT
         user_id,
         city,
@@ -21,7 +17,8 @@ source_cleaned AS (
                 ,",")[SAFE_OFFSET(0)]
             ) AS hometown_cleaned
     
-    FROM source)
+    FROM {{ ref('src_users') }}
+)
 
 SELECT
     user_id,
@@ -31,4 +28,4 @@ SELECT
     hometown_cleaned,
     memberships
 
-FROM source_cleaned
+FROM hometown_cleaned
