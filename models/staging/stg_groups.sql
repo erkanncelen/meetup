@@ -1,7 +1,3 @@
-WITH source AS (
-    SELECT * FROM {{ ref('src_groups') }}
-)
-
 SELECT 
     group_id,
     name,
@@ -13,4 +9,4 @@ SELECT
     lon,
     topics
 
-FROM source
+FROM {{ ref('src_groups') }}

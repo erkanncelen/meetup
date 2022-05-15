@@ -1,7 +1,3 @@
-WITH source AS (
-    SELECT * FROM {{ ref('src_venues') }}
-)
-
 SELECT 
     venue_id,
     name,
@@ -11,5 +7,5 @@ SELECT
     lat,
     lon
 
-FROM source
+FROM {{ ref('src_venues') }}
 -- table contains 1 NULL row, leaving it like this for now.
