@@ -3,7 +3,7 @@ WITH source AS (
 )
 
 SELECT
-    GENERATE_UUID() AS event_id,
+    ROW_NUMBER() OVER() AS event_id,
     group_id,
     name,
     REGEXP_REPLACE(description, "<.*?>", "") AS description,
