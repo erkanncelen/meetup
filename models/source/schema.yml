@@ -1,11 +1,11 @@
-# version:2
- 
-# models:
-#   - name: src_events
-#     description: source table for events json data
-#   - name: src_groups
-#     description: source table for  groups json data
-#   - name: src_ users
-#     description: source table for  users json data
-#   - name: src_ venues
-#     description: source table for  venues json data
+version: 2
+
+models:
+  - name: src_events
+    description: This table has basic information about a customer, as well as some derived facts based on a customer's orders
+
+    columns:
+      - name: group_id
+        description: This is a unique identifier for an event
+        tests:
+          - not_null
