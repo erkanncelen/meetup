@@ -6,9 +6,9 @@ SELECT
     LENGTH(sg.description) AS group_description_length,
     COUNT(DISTINCT se.event_id) event_count,
     ROUND(AVG(LENGTH(se.name)),2) AS event_name_length_avg,
-    ROUND(AVG(LENGTH(se.description)),2) AS event_description_avg,
+    ROUND(AVG(LENGTH(se.description)),2) AS event_description_length_avg,
     DATETIME_DIFF(MAX(se.start_time), MIN(se.start_time), DAY) AS group_active_time,
-    COUNT(DISTINCT se.event_id)/NULLIF(DATETIME_DIFF(MAX(se.start_time), MIN(se.start_time), DAY),0)*30 AS events_per_month
+    COUNT(DISTINCT se.event_id)*1.00/NULLIF(DATETIME_DIFF(MAX(se.start_time), MIN(se.start_time), DAY),0)*30 AS events_per_month
 
 FROM {{ ref('stg_groups') }} sg
 LEFT JOIN {{ ref('stg_events') }} se ON se.group_id = sg.group_id
@@ -80,7 +80,7 @@ SELECT
     gmet.group_description_length,
     gmet.event_count,
     gmet.event_name_length_avg,
-    gmet.event_description_avg,
+    gmet.event_description_length_avg,
     gmet.group_active_time,
     gmet.events_per_month,
     gmem.member_count,
