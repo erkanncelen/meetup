@@ -43,14 +43,91 @@ SELECT
 
 FROM {{ ref('stg_events') }} se
 LEFT JOIN {{ ref('stg_venues') }} sv ON sv.venue_id = se.venue_id
-LEFT JOIN {{ ref('stg_groups') }} sg ON sg.group_id = se.group_id)
+LEFT JOIN {{ ref('stg_groups') }} sg ON sg.group_id = se.group_id
+),
 
+-- inspecting event name and description lengths (and realtionship with group topics)
+topics_pre AS (
+SELECT 
+    se.event_id,
+    se.group_id,
+    sgt.topics,
 
+    se.name,
+    CASE WHEN UPPER(se.name) LIKE '%' || UPPER(sgt.topics) || '%'  THEN 1 ELSE 0 END AS name_contains_topic,
+    LENGTH(se.name) AS name_length,
+    
+    se.description,
+    CASE WHEN UPPER(se.description) LIKE '%' || UPPER(sgt.topics) || '%'  THEN 1 ELSE 0 END AS description_contains_topic,
+    LENGTH(se.description) AS description_length
 
+FROM {{ ref('stg_events') }} se
+LEFT JOIN {{ ref('stg_groups_topics') }} sgt ON sgt.group_id = se.group_id
+),
+name_description_topic AS (
+SELECT 
+    event_id,
+    group_id,
+    name_length,
+    description_length,
+    COUNT(DISTINCT topics) AS nr_of_group_topics,
+    SUM(name_contains_topic) AS name_topic_match,
+    SUM(description_contains_topic) AS description_topic_match,
+FROM topics_pre
+GROUP BY 1,2,3,4
+),
 
+-- calculating event specific metrics
+event_metrics AS (
+SELECT 
+    se.event_id,
+    se.name,
+    se.group_id,
+    se.created_at,
+    se.start_time,
+    se.duration_seconds/60 AS duration_minutes,
+    EXTRACT(HOUR FROM se.start_time) AS hour_of_event,
+    DATETIME_DIFF(se.start_time, se.created_at, DAY) AS event_prep_time_days,
+    ROW_NUMBER() OVER (PARTITION BY se.group_id ORDER BY se.created_at) AS nth_event_of_the_group
 
--- rsvps_count*1.00/member_count AS rsvps_to_members_ratio,
--- (rsvps_yes_count + rsvps_waitlist_count)*1.00/rsvps_count AS positive_rspvs_ratio,
+FROM {{ ref('stg_events') }} se
+)
+
+SELECT
+    se.event_id,
+    se.name,
+    se.created_at,
+    se.start_time,
+    se.description,
+    se.group_id,
+    se.venue_id,
+    se.status,
+    gm.member_count,
+    er.rsvp_limit,
+    er.rsvps_count,
+    er.rsvps_yes_count,
+    er.rsvps_no_count,
+    er.rsvps_waitlist_count,
+    er.avg_response_time_hour,
+    er.rsvps_count*1.00/er.member_count AS rsvps_to_members_ratio,
+    (er.rsvps_yes_count + er.rsvps_waitlist_count)*1.00/er.rsvps_count AS positive_rspvs_ratio,
+    vd.group_to_venue_distance_m,
+    ndt.name_length,
+    ndt.description_length,
+    ndt.name_topic_match,
+    ndt.description_topic_match,
+    ndt.nr_of_group_topics,
+    em.duration_minutes,
+    em.hour_of_event,
+    em.event_prep_time_days,
+    em.nth_event_of_the_group
+
+FROM {{ ref('stg_events') }} se
+LEFT JOIN group_members gm ON gm.event_id = se.event_id
+LEFT JOIN event_rsvps er ON er.event_id = se.event_id
+LEFT JOIN venue_distance vd ON vd.event_id = se.event_id
+LEFT JOIN name_description_topic ndt ON ndt.event_id = se.event_id
+LEFT JOIN event_metrics em ON em.event_id = se.event_id
 -- WHERE event status is SUCCESSFULL!
 
 
