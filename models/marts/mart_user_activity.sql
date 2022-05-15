@@ -5,7 +5,8 @@ SELECT
 
     SUM(CASE WHEN ser.response IS NOT NULL THEN 1 ELSE 0 END) AS response_count,
     SUM(CASE WHEN ser.response IN ('yes', 'waitlist') THEN 1 ELSE 0 END) AS positive_response_count,
-    COUNT(DISTINCT se.event_id) AS event_count
+    COUNT(DISTINCT se.event_id) AS event_count,
+    COUNT(DISTINCt sume.group_id) AS memberships_count
 
 
 FROM {{ ref('stg_groups') }} sg
@@ -17,6 +18,7 @@ GROUP BY 1
 
 SELECT
     user_id,
+    memberships_count,
     response_count,
     positive_response_count,
     event_count,
