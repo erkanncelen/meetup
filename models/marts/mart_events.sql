@@ -85,8 +85,17 @@ SELECT
     se.group_id,
     se.created_at,
     se.start_time,
-    se.duration_seconds/60 AS duration_minutes,
+    se.duration_seconds/60000 AS duration_minutes,
     EXTRACT(HOUR FROM se.start_time) AS hour_of_event,
+    CASE 
+        WHEN EXTRACT(DAYOFWEEK FROM se.start_time) = 1 THEN 'Sunday'
+        WHEN EXTRACT(DAYOFWEEK FROM se.start_time) = 2 THEN 'Monday'
+        WHEN EXTRACT(DAYOFWEEK FROM se.start_time) = 3 THEN 'Tuesday'
+        WHEN EXTRACT(DAYOFWEEK FROM se.start_time) = 4 THEN 'Wednesday'
+        WHEN EXTRACT(DAYOFWEEK FROM se.start_time) = 5 THEN 'Thursday'
+        WHEN EXTRACT(DAYOFWEEK FROM se.start_time) = 6 THEN 'Friday'
+        WHEN EXTRACT(DAYOFWEEK FROM se.start_time) = 7 THEN 'Saturday'
+    END AS day_of_event,
     DATETIME_DIFF(se.start_time, se.created_at, DAY) AS event_prep_time_days,
     ROW_NUMBER() OVER (PARTITION BY se.group_id ORDER BY se.created_at) AS nth_event_of_the_group
 
@@ -119,6 +128,7 @@ SELECT
     ndt.nr_of_group_topics,
     em.duration_minutes,
     em.hour_of_event,
+    em.day_of_event,
     em.event_prep_time_days,
     em.nth_event_of_the_group
 
@@ -128,6 +138,5 @@ LEFT JOIN event_rsvps er ON er.event_id = se.event_id
 LEFT JOIN venue_distance vd ON vd.event_id = se.event_id
 LEFT JOIN name_description_topic ndt ON ndt.event_id = se.event_id
 LEFT JOIN event_metrics em ON em.event_id = se.event_id
--- WHERE event status is SUCCESSFULL!
 
 
