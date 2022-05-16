@@ -38,6 +38,7 @@ SELECT
     s.other_group,
     sgg.name AS other_group_name,
     sgg.topics AS other_group_topics,
+    sgg.link AS other_group_link,
     s.shared_users,
     s.similarity_percentage
 FROM similiarities s
