@@ -7,61 +7,210 @@ models:
     
     columns:
       - name: event_id
-        description: This is the unique identifier of an event
+        description: This is the unique identifier of an event.
         tests:
           - unique
           - not_null
       - name: group_id
-        description: This is the unique identifier of an event
+        description: The unique identifier of the group that organised this event.
       - name: name
-        description: This is the unique identifier of an event
+        description: The title of the event.
       - name: description
-        description: This is the unique identifier of an event
+        description: The description of the event.
       - name: created_at
-        description: This is the unique identifier of an event
+        description: Timestamp of the moment the event was created by the organiser.
       - name: start_time
-        description: This is the unique identifier of an event
+        description: The timestamp of when the event will start (or has started).
       - name: duration_seconds
-        description: This is the unique identifier of an event
+        description: The duration of the event, in seconds.
       - name: rsvp_limit
-        description: This is the unique identifier of an event
+        description: The maximum number of YES RSVPs that this event will allow.
       - name: venue_id
-        description: This is the unique identifier of an event
+        description: Unique identifier of the venue where this event takes place (see below).
       - name: status
-        description: This is the unique identifier of an event
+        description: The status of the event. Possible values include 'past' and 'upcoming', meaning the the event has already taken place or that the event is planned for the future respectively.
       - name: rsvps
-        description: This is the unique identifier of an event
+        description: An array of RSVP objects, which contain the following fields; user_id, when, response, guests
+
 
   - name: stg_events_responses
+    description: 
+    
+    columns:
+      - name: 
+        description: 
+        tests:
+          - unique
+          - not_null
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+  
 
   - name: stg_groups
+    description: 
+    
+    columns:
+      - name: 
+        description: 
+        tests:
+          - unique
+          - not_null
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
 
   - name: stg_groups_topics
+    description: 
+    
+    columns:
+      - name: 
+        description: 
+        tests:
+          - unique
+          - not_null
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
 
   - name: stg_users
+    description: 
+    
+    columns:
+      - name: 
+        description: 
+        tests:
+          - unique
+          - not_null
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
 
   - name: stg_users_memberships
+    description: 
+    
+    columns:
+      - name: 
+        description: 
+        tests:
+          - unique
+          - not_null
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
 
   - name: stg_venues
-
-#   - name: stg_orders
-#     columns:
-#       - name: order_id
-#         tests:
-#           - unique
-#           - not_null
-#       - name: status
-#         tests:
-#           - accepted_values:
-#               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
-
-#   - name: stg_payments
-#     columns:
-#       - name: payment_id
-#         tests:
-#           - unique
-#           - not_null
-#       - name: payment_method
-#         tests:
-#           - accepted_values:
-#               values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
+    description: 
+    
+    columns:
+      - name: 
+        description: 
+        tests:
+          - unique
+          - not_null
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+      - name: 
+        description: 
+        
