@@ -1,12 +1,48 @@
 version: 2
 
+
 models:
   - name: stg_events
+    description: This table has basic information about a customer, as well as some derived facts based on a customer's orders
+    
     columns:
       - name: event_id
+        description: This is the unique identifier of an event
         tests:
           - unique
           - not_null
+      - name: group_id
+        description: This is the unique identifier of an event
+      - name: name
+        description: This is the unique identifier of an event
+      - name: description
+        description: This is the unique identifier of an event
+      - name: created_at
+        description: This is the unique identifier of an event
+      - name: start_time
+        description: This is the unique identifier of an event
+      - name: duration_seconds
+        description: This is the unique identifier of an event
+      - name: rsvp_limit
+        description: This is the unique identifier of an event
+      - name: venue_id
+        description: This is the unique identifier of an event
+      - name: status
+        description: This is the unique identifier of an event
+      - name: rsvps
+        description: This is the unique identifier of an event
+
+  - name: stg_events_responses
+
+  - name: stg_groups
+
+  - name: stg_groups_topics
+
+  - name: stg_users
+
+  - name: stg_users_memberships
+
+  - name: stg_venues
 
 #   - name: stg_orders
 #     columns:
