@@ -109,7 +109,11 @@ SELECT
     se.start_time,
     se.description,
     se.group_id,
+    sg.lat AS group_lat,
+    sg.lon group_lon,
     se.venue_id,
+    sv.lat AS venue_lat,
+    sv.lon AS venue_lon,
     se.status,
     gm.member_count,
     er.rsvp_limit,
@@ -138,5 +142,6 @@ LEFT JOIN event_rsvps er ON er.event_id = se.event_id
 LEFT JOIN venue_distance vd ON vd.event_id = se.event_id
 LEFT JOIN name_description_topic ndt ON ndt.event_id = se.event_id
 LEFT JOIN event_metrics em ON em.event_id = se.event_id
-
+LEFT JOIN {{ ref('stg_venues') }} sv ON sv.venue_id = se.venue_id
+LEFT JOIN {{ ref('stg_groups') }} sg ON sg.group_id = se.group_id
 
