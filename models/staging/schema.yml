@@ -3,11 +3,11 @@ version: 2
 
 models:
   - name: stg_events
-    description: This table has basic information about a customer, as well as some derived facts based on a customer's orders
+    description: This table has information about events.
     
     columns:
       - name: event_id
-        description: This is the unique identifier of an event.
+        description: This is the unique identifier of an event. (Primary Key)
         tests:
           - unique
           - not_null
@@ -34,183 +34,108 @@ models:
 
 
   - name: stg_events_responses
-    description: 
+    description: This table has information about user responses to events.
     
     columns:
-      - name: 
-        description: 
-        tests:
-          - unique
-          - not_null
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
+      - name: event_id
+        description: This is the unique identifier of an event.
+      - name: user_id
+        description: The unique identifier of the user that RSVPed for this event.
+      - name: responded_at
+        description: Timestamp of the moment the user gave their RSVP.
+      - name: response
+        description: Yes or No or Waitlist (Yes), the indication of whether this user will attend the event.
+      - name: guests
+        description: If permitted, the number of guests that the user is planning to bring to the event.
+      - name: rsvp_limit
+        description: The maximum number of YES RSVPs that this event will allow.
   
 
   - name: stg_groups
-    description: 
+    description: This table has information about groups.
     
     columns:
-      - name: 
-        description: 
+      - name: group_id
+        description: This is the unique identifier of a group. (Primary Key)
         tests:
           - unique
           - not_null
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
+      - name: name
+        description: Name of the group.
+      - name: description
+        description: Description of the group.
+      - name: link
+        description: Link to the group's homepage.
+      - name: created_at
+        description: Timestamp of when the group was created.
+      - name: city
+        description: Name of the city where the group resides.
+      - name: lat
+        description: Latitude of the place where the group resides.
+      - name: lon
+        description: Longitude of the place where the group resides.
+      - name: topics
+        description: Array of topics that this group discusses or otherwise associates with.
+
 
   - name: stg_groups_topics
-    description: 
+    description: This table has information about group topics.
     
     columns:
-      - name: 
-        description: 
-        tests:
-          - unique
-          - not_null
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
+      - name: group_id
+        description: This is the unique identifier of a group.
+      - name: topics
+        description: An array of topics unnested into rows from stg_groups.topics field, belonging to the group_id. 
+
 
   - name: stg_users
-    description: 
+    description: This table has information about users.
     
     columns:
-      - name: 
-        description: 
+      - name: user_id
+        description: This is the unique identifier for a user. (Primary Key)
         tests:
           - unique
           - not_null
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
+      - name: country
+        description: Country where the user resides.
+      - name: city
+        description: City where the user resides.
+      - name: hometown
+        description: Town that the user specified as their home town.
+      - name: memberships
+        description:  Array of membership objects, containing the following fields; joined, group_id
+
 
   - name: stg_users_memberships
-    description: 
+    description: This table has information about users' memberships.
     
     columns:
-      - name: 
-        description: 
-        tests:
-          - unique
-          - not_null
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
+      - name: user_id
+        description: This is the unique identifier for a user.
+      - name: group_id
+        description: This is the unique identifier of the group that the user has joined.
+      - name: joined_at
+        description: Timestamp of the moment the user joined this group.
+
 
   - name: stg_venues
-    description: 
+    description: This table has information about venues.
     
     columns:
-      - name: 
-        description: 
+      - name: venue_id
+        description: This is the unique identifier for a venue. (Primary Key)
         tests:
           - unique
           - not_null
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
-      - name: 
-        description: 
+      - name: name
+        description: The name of the venue.
+      - name: city
+        description: The city where the venue is located.
+      - name: country
+        description: The country where the venue is located.
+      - name: lat
+        description: The lattitude of the venue location.
+      - name: lon
+        description: The longitude of the venue location.
         
