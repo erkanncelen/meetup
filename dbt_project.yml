@@ -23,3 +23,5 @@ models:
       materialized: table
     staging:
       materialized: table
+    marts:
+      materialized: table
